@@ -9,7 +9,14 @@ Authors@R:
 Description: Create violin plots of gene expression for multiple genes,
     potentially grouped together.  Suitable for ploting marker gene lists.
 License: BSD_3_clause + file LICENSE
+Depends: R (>= 3.5.0),
+    tidyr,
+    tibble,
+    plyr,
+    ggplot2,
 Encoding: UTF-8
+Remotes:
+    github::satijalab/Seurat@release/3.0
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
