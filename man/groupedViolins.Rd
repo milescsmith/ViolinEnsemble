@@ -4,8 +4,9 @@
 \alias{groupedViolins}
 \title{groupedViolins}
 \usage{
-groupedViolins(object, genes = NULL, marker_list = NULL, group_by,
-  plot_title = NULL, assay_use = "RNA", flip = TRUE)
+groupedViolins(object, genes = NULL, marker_list = NULL,
+  group_var = NULL, plot_title = NULL, assay_use = "RNA",
+  flip = TRUE)
 }
 \arguments{
 \item{object}{Seurat object to plot}
@@ -18,7 +19,7 @@ or FindAllMarkers or a two column data.frame with the columns "cluster" and
 present in multiple clusters, only the first (as determined by arrange()) is used.
 Default: NULL}
 
-\item{group_by}{Grouping variable from ident or meta data to use.}
+\item{group_var}{Grouping variable from ident or meta data to use.}
 
 \item{plot_title}{What it says on the tin.  Default: NULL}
 
