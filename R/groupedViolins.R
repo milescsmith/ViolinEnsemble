@@ -10,7 +10,8 @@
 #'  "gene".  If provided, supercedes the genes argument.  Note: if a marker is
 #'  present in multiple clusters, only the first (as determined by arrange()) is used.
 #'  Default: NULL
-#' @param group_var Grouping variable from ident or meta data to use.
+#' @param group_var Grouping variable from ident or meta data to use. If NULL,
+#' the current active.ident is used.  Default: NULL
 #' @param plot_title What it says on the tin.  Default: NULL
 #' @param assay_use Assay to plot.  Default: "RNA"
 #' @param flip Should genes be displayed along the y-axis? Default: TRUE

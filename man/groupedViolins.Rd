@@ -19,7 +19,8 @@ or FindAllMarkers or a two column data.frame with the columns "cluster" and
 present in multiple clusters, only the first (as determined by arrange()) is used.
 Default: NULL}
 
-\item{group_var}{Grouping variable from ident or meta data to use.}
+\item{group_var}{Grouping variable from ident or meta data to use. If NULL,
+the current active.ident is used.  Default: NULL}
 
 \item{plot_title}{What it says on the tin.  Default: NULL}
 
