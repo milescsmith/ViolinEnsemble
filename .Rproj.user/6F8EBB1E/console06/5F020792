@@ -1,0 +1,146 @@
+]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ [K]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ [K]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ [K]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ git -v[K-help
+usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+   clone      Clone a repository into a new directory
+   init       Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+   add        Add file contents to the index
+   mv         Move or rename a file, a directory, or a symlink
+   reset      Reset current HEAD to the specified state
+   rm         Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+   bisect     Use binary search to find the commit that introduced a bug
+   grep       Print lines matching a pattern
+   log        Show commit logs
+   show       Show various types of objects
+   status     Show the working tree status
+
+grow, mark and tweak your common history
+   branch     List, create, or delete branches
+   checkout   Switch branches or restore working tree files
+   commit     Record changes to the repository
+   diff       Show changes between commits, commit and working tree, etc
+   merge      Join two or more development histories together
+   rebase     Reapply commits on top of another base tip
+   tag        Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+   fetch      Download objects and refs from another repository
+   pull       Fetch from and integrate with another repository or a local branch
+   push       Update remote refs along with associated objects
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ git show
+[?1h=[33mcommit 7acd210276ff6ea2f45467266907dcd03eeec09f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m[m
+Author: Miles Smith <miles-smith@omrf.org>[m
+Date:   Sun Feb 17 12:27:37 2019 -0600[m
+[m
+    initalized[m
+[m
+[1mdiff --git a/ReducedHeat/.Rbuildignore b/ReducedHeat/.Rbuildignore[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..e4c92e9[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/ReducedHeat/.Rbuildignore[m[m
+[36m@@ -0,0 +1,3 @@[m[m
+[32m+[m[32m^LICENSE\.md$[m[m
+[32m+[m[32m^tsnheat\.Rproj$[m[m
+[32m+[m[32m^\.Rproj\.user$[m[m
+[1mdiff --git a/ReducedHeat/.gitignore b/ReducedHeat/.gitignore[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..26e3515[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/ReducedHeat/.gitignore[m[m
+[36m@@ -0,0 +1 @@[m[m
+[32m+[m[32m.Rproj.user[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/ReducedHeat/DESCRIPTION b/ReducedHeat/DESCRIPTION[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..a0522b7[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/ReducedHeat/DESCRIPTION[m[m
+[36m@@ -0,0 +1,27 @@[m[m
+[32m+[m[32mPackage: ReducedHeat[m[m
+[32m+[m[32mTitle: Produces heatmap from a 1d dimensional reduction[m[m
+[32m+[m[32mVersion: 0.0.0.9000[m[m
+[32m+[m[32mAuthors@R:[m[41m [m[m
+[32m+[m[32m    person(given = "Miles",[m[m
+[32m+[m[32m           family = "Smith",[m[m
+:[K[K [K::[Kqq[K[?1l>]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ ls
+DESCRIPTION  NAMESPACE  [0m[01;34mR[0m  groupedViolins.Rproj  [01;34mman[0m
+]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ ls -lah
+total 4.1G
+drwxr-xr-x  5 milo datascientists 4.0K Feb 20 11:17 [0m[01;34m.[0m
+drwxr-xr-x 23 milo datascientists 4.0K Feb 20 11:17 [01;34m..[0m
+-rw-r--r--  1 milo datascientists 4.1G Feb 20 11:17 .RData
+-rw-r--r--  1 milo datascientists   28 Feb 20 11:17 .Rbuildignore
+drwxr-xr-x  4 milo datascientists 4.0K Feb 20 11:17 [01;34m.Rproj.user[0m
+-rw-r--r--  1 milo datascientists  376 Feb 20 11:17 DESCRIPTION
+-rw-r--r--  1 milo datascientists   31 Feb 20 11:17 NAMESPACE
+drwxr-xr-x  2 milo datascientists 4.0K Feb 20 11:17 [01;34mR[0m
+-rw-r--r--  1 milo datascientists  356 Feb 20 11:17 groupedViolins.Rproj
+drwxr-xr-x  2 milo datascientists 4.0K Feb 20 11:17 [01;34mman[0m
+]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ cd ..
+]0;/home/milo/workspace]0;milo@io: ~/workspace[01;32mmilo@io[00m:[01;34m~/workspace[00m$ ls -lah
+total 1.1G
+drwxr-xr-x 23 milo datascientists 4.0K Feb 20 11:17 [0m[01;34m.[0m
+drwxr-xr-x 31 milo datascientists 4.0K Feb 20 10:09 [01;34m..[0m
+drwxr-xr-x  8 milo datascientists 4.0K Feb 20 11:19 [01;34m.git[0m
+-rw-r--r--  1 milo datascientists   40 Feb 15 16:31 .gitignore
+drwxr-xr-x  2 milo datascientists 4.0K Jan 31 10:31 [01;34m.ipynb_checkpoints[0m
+drwxr-xr-x  7 milo datascientists 4.0K Feb 14 12:55 [01;34mDECENT[0m
+drwxr-xr-x  6 milo datascientists 4.0K Oct 14 13:16 [01;34mDEGcompareR[0m
+drwxr-xr-x  6 milo datascientists 4.0K Jan 22 13:57 [01;34mMASC[0m
+drwxr-xr-x  6 milo datascientists 4.0K Feb 20 09:46 [01;34mReducedHeat[0m
+drwxr-xr-x  8 milo datascientists 4.0K Dec 19 15:14 [01;34mSCMarker[0m
+drwxr-xr-x 11 milo datascientists 4.0K Feb  4 10:50 [01;34mWGCNA[0m
+drwxr-xr-x  4 milo datascientists 4.0K Feb 20 09:47 [01;34mana_scrna_paper[0m
+drwxr-xr-x  2 milo datascientists 4.0K Jan 14 11:32 [01;34mbulk_rna[0m
+drwxr-xr-x 11 milo datascientists 4.0K Jan 30 09:21 [01;34mcellassign[0m
+-rw-r--r--  1 milo datascientists 7.0K Feb 20 09:53 enhancedDimPlot.R
+drwxr-xr-x  5 milo datascientists 4.0K Feb 20 11:17 [01;34mgroupedViolins[0m
+-rw-r--r--  1 milo datascientists 4.4K Feb 20 11:16 groupedViolins.R
+drwxr-xr-x 11 milo datascientists 4.0K Feb 15 10:54 [01;34mharmony[0m
+drwxr-xr-x  6 milo datascientists 4.0K Feb 18 14:31 [01;34mmoduleScoreR[0m
+drwxr-xr-x  8 milo datascientists 4.0K Feb 14 13:21 [01;34mnbid[0m
+drwxr-xr-x 10 milo datascientists 4.0K Oct 25 20:53 [01;34mnetSmooth[0m
+drwxr-xr-x  7 milo datascientists 4.0K Jan 15 16:16 [01;34mscClustViz[0m
+drwxr-xr-x  6 milo datascientists 4.0K Feb 13 12:24 [01;34mscRNAimputeR[0m
+drwxr-xr-x  2 milo datascientists 4.0K Feb 19 15:05 [01;34mscripts[0m
+drwxr-xr-x  5 milo datascientists 4.0K Oct 26 15:41 [01;34mscvis-dev[0m
+-rw-r--r--  1 milo datascientists 1.1G Dec 16 10:15 smaller.RData
+drwxr-xr-x  7 milo datascientists 4.0K Oct 31 11:29 [01;34mtensorflow[0m
+-rw-r--r--  1 milo datascientists  689 Feb 20 09:53 test_lineage_with_celltype_header.R
+]0;/home/milo/workspace]0;milo@io: ~/workspace[01;32mmilo@io[00m:[01;34m~/workspace[00m$ rm -fr -[K.git
+]0;/home/milo/workspace]0;milo@io: ~/workspace[01;32mmilo@io[00m:[01;34m~/workspace[00m$ [K]0;milo@io: ~/workspace[01;32mmilo@io[00m:[01;34m~/workspace[00m$ cd groupedViolins
+]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ vim LISCEN[K[K[K[KCENSE
+[?2004h[23;0;0t]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ [K]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ git init
+Initialized empty Git repository in /home/milo/workspace/groupedViolins/.git/
+]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ git add .
+^C
+]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ rm -[K[K[K[Kmv .RData ..[K[K~/
+]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ mv .RData ~/[3Pgit add .mv .RData ~/[Kls -lah
+total 44K
+drwxr-xr-x  6 milo datascientists 4.0K Feb 20 11:31 [0m[01;34m.[0m
+drwxr-xr-x 22 milo datascientists 4.0K Feb 20 11:22 [01;34m..[0m
+-rw-r--r--  1 milo datascientists   28 Feb 20 11:17 .Rbuildignore
+drwxr-xr-x  4 milo datascientists 4.0K Feb 20 11:17 [01;34m.Rproj.user[0m
+drwxr-xr-x  7 milo datascientists 4.0K Feb 20 11:31 [01;34m.git[0m
+-rw-r--r--  1 milo datascientists  521 Feb 20 11:30 DESCRIPTION
+-rw-r--r--  1 milo datascientists 1.5K Feb 20 11:27 LICENSE
+-rw-r--r--  1 milo datascientists   31 Feb 20 11:17 NAMESPACE
+drwxr-xr-x  2 milo datascientists 4.0K Feb 20 11:17 [01;34mR[0m
+-rw-r--r--  1 milo datascientists  356 Feb 20 11:17 groupedViolins.Rproj
+drwxr-xr-x  2 milo datascientists 4.0K Feb 20 11:17 [01;34mman[0m
+]0;/home/milo/workspace/groupedViolins]0;milo@io: ~/workspace/groupedViolins[01;32mmilo@io[00m:[01;34m~/workspace/groupedViolins[00m$ ls -lahmv .RData ~/[3Pgit add .
