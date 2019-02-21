@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/milescsmith/violinEnsemble.svg?branch=master)](https://travis-ci.com/milescsmith/violinEnsemble)
 # violinEnsemble
 Create violin plots of gene expression for multiple genes
 
