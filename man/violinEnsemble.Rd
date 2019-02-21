@@ -6,7 +6,7 @@
 \usage{
 violinEnsemble(object, genes = NULL, marker_list = NULL,
   group_var = NULL, plot_title = NULL, assay_use = "RNA",
-  flip = TRUE)
+  slot_use = "data", flip = TRUE)
 }
 \arguments{
 \item{object}{Seurat object to plot}
