@@ -1,4 +1,4 @@
-#' @title groupedViolins
+#' @title violinEnsemble
 #'
 #' @description Produce grouped violin plots.  Suitable for
 #' plotting cluster or cell type specific marker genes.
@@ -29,7 +29,7 @@
 #' @export
 #'
 #' @examples
-groupedViolins <- function(object,
+violinEnsemble <- function(object,
                          genes = NULL,
                          marker_list = NULL,
                          group_var = NULL,
