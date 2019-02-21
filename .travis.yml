@@ -1,0 +1,25 @@
+language: r
+r:
+  - release
+cache: packages
+
+dist: xenial
+
+sudo: required
+
+addons:
+  apt:
+    packages:
+      - libgit2-dev
+      - libhdf5-dev
+      - libtool
+  homebrew:
+    packages:
+      - cmake
+      - gcc
+
+r_packages:
+    - tidyverse
+
+Remotes: 
+    satijalab/Seurat@release/3.0
