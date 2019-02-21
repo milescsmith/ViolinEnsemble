@@ -25,6 +25,8 @@ the current active.ident is used.  Default: NULL}
 \item{plot_title}{What it says on the tin.  Default: NULL}
 
 \item{assay_use}{Assay to plot.  Default: "RNA"}
+  
+\item{slot_use}{Slot to draw data from.  Default: "data"}
 
 \item{flip}{Should genes be displayed along the y-axis? Default: TRUE}
 }
