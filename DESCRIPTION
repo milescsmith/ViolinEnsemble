@@ -1,4 +1,4 @@
-Package: groupedViolins
+Package: violinEnsemble
 Title: Create violin plots of gene expression for multiple genes
 Version: 0.0.0.9000
 Authors@R: 
