@@ -14,9 +14,10 @@
 #' the current active.ident is used.  Default: NULL
 #' @param plot_title What it says on the tin.  Default: NULL
 #' @param assay_use Assay to plot.  Default: "RNA"
+#' @param slot_use Slot to draw data from.  Default: "data"
 #' @param flip Should genes be displayed along the y-axis? Default: TRUE
 #'
-#' @importFrom Seurat FetchData
+#' @importFrom Seurat GetAssayData
 #' @importFrom tidyr gather
 #' @importFrom tibble rownames_to_column
 #' @importFrom dplyr group_by arrange select slice
@@ -34,6 +35,7 @@ groupedViolins <- function(object,
                          group_var = NULL,
                          plot_title = NULL,
                          assay_use = "RNA",
+                         slot_use = "data",
                          flip = TRUE){
 
   # if there is a simpler/better way to handle arguments
@@ -61,8 +63,16 @@ groupedViolins <- function(object,
   }
 
   group_var <- enquo(group_var)
+  
+  if (assay_use %in% names(object)){
+    DefaultAssay(object) <- assay_use
+  } else {
+    stop("That assay does not appear to be present in your data object")
+  }
+  
   type_expr <- FetchData(object,
-                         vars = c(unique(genes), quo_name(group_var)))
+                         vars = c(unique(genes), quo_name(group_var)),
+                         slot = slot_use)
   type_expr %<>%
     rownames_to_column('name') %>%
     gather(key = "gene",
