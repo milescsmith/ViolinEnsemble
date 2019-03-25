@@ -2,11 +2,12 @@
 
 export(violinEnsemble)
 import(ggplot2)
-importFrom(Seurat,FetchData)
+importFrom(Seurat,GetAssayData)
 importFrom(dplyr,arrange)
 importFrom(dplyr,group_by)
 importFrom(dplyr,select)
 importFrom(dplyr,slice)
+importFrom(gtools,mixedsort)
 importFrom(magrittr,"%<>%")
 importFrom(magrittr,"%>%")
 importFrom(stringr,str_detect)

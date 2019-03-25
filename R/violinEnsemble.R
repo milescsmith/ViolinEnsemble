@@ -6,15 +6,16 @@
 #' @param object Seurat object to plot
 #' @param genes List of genes to plot
 #' @param marker_list A table of cluster markers as produced by FindMarkers()
-#'  or FindAllMarkers or a two column data.frame with the columns "cluster" and
-#'  "gene".  If provided, supercedes the genes argument.  Note: if a marker is
-#'  present in multiple clusters, only the first (as determined by arrange()) is used.
-#'  Default: NULL
+#' or FindAllMarkers or a two column data.frame with the columns "cluster" and
+#' "gene".  If provided, supercedes the genes argument.  Note: if a marker is
+#' present in multiple clusters, only the first (as determined by arrange()) is used.
+#' Default: NULL
 #' @param group_var Grouping variable from ident or meta data to use. If NULL,
 #' the current active.ident is used.  Default: NULL
 #' @param plot_title What it says on the tin.  Default: NULL
 #' @param assay_use Assay to plot.  Default: "RNA"
 #' @param slot_use Slot to draw data from.  Default: "data"
+#' @param sort If TRUE, attempt to sort the groups alpha-numerically. Default: FALSE
 #' @param flip Should genes be displayed along the y-axis? Default: TRUE
 #'
 #' @importFrom Seurat GetAssayData
@@ -23,6 +24,7 @@
 #' @importFrom dplyr group_by arrange select slice
 #' @importFrom stringr str_detect
 #' @importFrom magrittr %>% %<>%
+#' @importFrom gtools mixedsort
 #' @import ggplot2
 #'
 #' @return
@@ -36,6 +38,7 @@ violinEnsemble <- function(object,
                          plot_title = NULL,
                          assay_use = "RNA",
                          slot_use = "data",
+                         sort = FALSE,
                          flip = TRUE){
 
   # if there is a simpler/better way to handle arguments
@@ -63,13 +66,13 @@ violinEnsemble <- function(object,
   }
 
   group_var <- enquo(group_var)
-  
+
   if (assay_use %in% names(object)){
     DefaultAssay(object) <- assay_use
   } else {
     stop("That assay does not appear to be present in your data object")
   }
-  
+
   type_expr <- FetchData(object,
                          vars = c(unique(genes), quo_name(group_var)),
                          slot = slot_use)
@@ -88,6 +91,14 @@ violinEnsemble <- function(object,
                       string = type_expr[["cluster"]]))){
       type_expr[["cluster"]] %<>% as.integer() %>% as.factor()
     }
+  }
+
+  if (isTRUE(sort)){
+    try(
+      if(is.factor(type_expr[[quo_name(group_var)]])){
+        type_expr[[quo_name(group_var)]] %<>% reorder()
+        type_expr %<>% arrange(!!group_var)
+      })
   }
 
   type_violins <- type_expr %>%

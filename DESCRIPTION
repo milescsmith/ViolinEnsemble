@@ -1,6 +1,6 @@
 Package: violinEnsemble
 Title: Create violin plots of gene expression for multiple genes
-Version: 0.0.0.9000
+Version: 0.0.0.9100
 Authors@R: 
     person(given = "Miles",
            family = "Smith",
@@ -16,6 +16,7 @@ Depends: R (>= 3.5.0),
     dplyr,
     stringr,
     ggplot2,
+    gtools,
     Seurat
 Encoding: UTF-8
 Remotes:
