@@ -4,23 +4,30 @@
 \alias{violinEnsemble}
 \title{violinEnsemble}
 \usage{
-violinEnsemble(object, genes = NULL, marker_list = NULL,
-  group_var = NULL, plot_title = NULL, assay_use = "RNA",
+violinEnsemble(object, features = NULL, marker_list = NULL,
+  group_var = NULL, show_points = FALSE, alpha = 0.5,
+  pt_size = 0.25, plot_title = NULL, assay_use = "RNA",
   slot_use = "data", sort = FALSE, flip = TRUE)
 }
 \arguments{
 \item{object}{Seurat object to plot}
 
-\item{genes}{List of genes to plot}
+\item{features}{List of features to plot}
 
 \item{marker_list}{A table of cluster markers as produced by FindMarkers()
 or FindAllMarkers or a two column data.frame with the columns "cluster" and
-"gene".  If provided, supercedes the genes argument.  Note: if a marker is
+"feature".  If provided, supercedes the features argument.  Note: if a marker is
 present in multiple clusters, only the first (as determined by arrange()) is used.
 Default: NULL}
 
 \item{group_var}{Grouping variable from ident or meta data to use. If NULL,
 the current active.ident is used.  Default: NULL}
+
+\item{show_points}{Display data points in addition to violin using geom_jitter? Default: FALSE}
+
+\item{alpha}{Alpha value to use with geom_jitter. Default: 1}
+
+\item{pt_size}{Point size to use with geom_jitter. Default: 0.25}
 
 \item{plot_title}{What it says on the tin.  Default: NULL}
 
@@ -30,9 +37,9 @@ the current active.ident is used.  Default: NULL}
 
 \item{sort}{If TRUE, attempt to sort the groups alpha-numerically. Default: FALSE}
 
-\item{flip}{Should genes be displayed along the y-axis? Default: TRUE}
+\item{flip}{Should features be displayed along the y-axis? Default: TRUE}
 }
 \description{
 Produce grouped violin plots.  Suitable for
-plotting cluster or cell type specific marker genes.
+plotting cluster or cell type specific marker features.
 }

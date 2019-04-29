@@ -1,22 +1,25 @@
 #' @title violinEnsemble
 #'
 #' @description Produce grouped violin plots.  Suitable for
-#' plotting cluster or cell type specific marker genes.
+#' plotting cluster or cell type specific marker features.
 #'
 #' @param object Seurat object to plot
-#' @param genes List of genes to plot
+#' @param features List of features to plot
 #' @param marker_list A table of cluster markers as produced by FindMarkers()
 #' or FindAllMarkers or a two column data.frame with the columns "cluster" and
-#' "gene".  If provided, supercedes the genes argument.  Note: if a marker is
+#' "feature".  If provided, supercedes the features argument.  Note: if a marker is
 #' present in multiple clusters, only the first (as determined by arrange()) is used.
 #' Default: NULL
 #' @param group_var Grouping variable from ident or meta data to use. If NULL,
 #' the current active.ident is used.  Default: NULL
+#' @param show_points Display data points in addition to violin using geom_jitter? Default: FALSE
+#' @param alpha Alpha value to use with geom_jitter. Default: 1
+#' @param pt_size Point size to use with geom_jitter. Default: 0.25
 #' @param plot_title What it says on the tin.  Default: NULL
 #' @param assay_use Assay to plot.  Default: "RNA"
 #' @param slot_use Slot to draw data from.  Default: "data"
 #' @param sort If TRUE, attempt to sort the groups alpha-numerically. Default: FALSE
-#' @param flip Should genes be displayed along the y-axis? Default: TRUE
+#' @param flip Should features be displayed along the y-axis? Default: TRUE
 #'
 #' @importFrom Seurat GetAssayData
 #' @importFrom tidyr gather
@@ -32,19 +35,22 @@
 #'
 #' @examples
 violinEnsemble <- function(object,
-                         genes = NULL,
-                         marker_list = NULL,
-                         group_var = NULL,
-                         plot_title = NULL,
-                         assay_use = "RNA",
-                         slot_use = "data",
-                         sort = FALSE,
-                         flip = TRUE){
+                           features = NULL,
+                           marker_list = NULL,
+                           group_var = NULL,
+                           show_points = FALSE,
+                           alpha = 0.5,
+                           pt_size = 0.25,
+                           plot_title = NULL,
+                           assay_use = "RNA",
+                           slot_use = "data",
+                           sort = FALSE,
+                           flip = TRUE){
 
   # if there is a simpler/better way to handle arguments
   # being either quoted or unquoted, I'd love to hear about it.
-  if (is.null(genes) & is.null(marker_list)){
-    stop("No genes or marker_list provided.  What am I supposed to plot?")
+  if (is.null(features) & is.null(marker_list)){
+    stop("No features or marker_list provided.  What am I supposed to plot?")
   }
   try(
     if (is.null(group_var)){
@@ -57,12 +63,12 @@ violinEnsemble <- function(object,
   )
 
   if (!is.null(marker_list)){
-    marker_list %<>% select(cluster, gene) %>%
+    marker_list %<>% select(cluster, feature) %>%
       mutate_if(is.factor, as.character) %>%
-      arrange(gene) %>%
-      group_by(gene) %>%
+      arrange(feature) %>%
+      group_by(feature) %>%
       slice(1)
-    genes <- marker_list %>% pull(gene) %>% as.character()
+    features <- marker_list %>% pull(feature) %>% as.character()
   }
 
   group_var <- enquo(group_var)
@@ -74,17 +80,17 @@ violinEnsemble <- function(object,
   }
 
   type_expr <- FetchData(object,
-                         vars = c(unique(genes), quo_name(group_var)),
+                         vars = c(unique(features), quo_name(group_var)),
                          slot = slot_use)
   type_expr %<>%
     rownames_to_column('name') %>%
-    gather(key = "gene",
+    gather(key = "feature",
            value = "value",
            -name,
            -!!group_var)
 
   if (!is.null(marker_list)){
-    type_expr %<>% inner_join(marker_list, by = "gene")
+    type_expr %<>% inner_join(marker_list, by = "feature")
     # fix the ordering of the clusters in the event they are all numbers
     # so that 0 < 1 < 2 ... < n + 1 instead or 0 < 1 < 10 < 2
     if(all(str_detect(pattern = "[0-9]+",
@@ -127,16 +133,24 @@ violinEnsemble <- function(object,
                       fill = cluster),
                   scale = "width",
                   trim = TRUE) +
-      facet_grid(~cluster+gene,
+      facet_grid(~cluster+feature,
                  scales = "free")
   } else {
     type_violins <- type_violins +
       geom_violin(aes(x = !!group_var,
                       y = value,
-                      fill = gene),
+                      fill = feature),
                   scale = "width",
                   trim = TRUE) +
-      facet_grid(~gene, scales = "free")
+      facet_grid(~feature, scales = "free")
+  }
+
+  if (show_points){
+    type_violins <- type_violins + geom_jitter(aes(x = !!group_var,
+                                                   y = value),
+                                               alpha = alpha,
+                                               size = pt_size
+                                               )
   }
 
   if(!is.null(plot_title)){
