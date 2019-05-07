@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.com/milescsmith/violinEnsemble.svg?branch=master)](https://travis-ci.com/milescsmith/violinEnsemble)
-# violinEnsemble
+# ViolinEnsemble
 Create violin plots of gene expression for multiple genes
 
-Given a Seurat object and a list of genes, groupedViolins will plot expression levels for each gene with the cells 
+Given a Seurat object and a list of genes, ViolinEnsemble will plot expression levels for each gene with the cells 
 grouped by a provided variable (such as cell type or cluster identity).  If the gene list provided is a table containing the
 columns "cluster" and "gene" (such as from FindAllClusters(), the genes will be grouped by the cluster with which 
 they are associated.

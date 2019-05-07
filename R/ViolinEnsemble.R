@@ -1,4 +1,4 @@
-#' @title violinEnsemble
+#' @title ViolinEnsemble
 #'
 #' @description Produce grouped violin plots.  Suitable for
 #' plotting cluster or cell type specific marker features.
@@ -10,7 +10,7 @@
 #' "feature".  If provided, supercedes the features argument.  Note: if a marker is
 #' present in multiple clusters, only the first (as determined by arrange()) is used.
 #' Default: NULL
-#' @param group_var Grouping variable from ident or meta data to use. If NULL,
+#' @param grouping_var Grouping variable from ident or meta data to use. If NULL,
 #' the current active.ident is used.  Default: NULL
 #' @param show_points Display data points in addition to violin using geom_jitter? Default: FALSE
 #' @param alpha Alpha value to use with geom_jitter. Default: 1
@@ -21,23 +21,24 @@
 #' @param sort If TRUE, attempt to sort the groups alpha-numerically. Default: FALSE
 #' @param flip Should features be displayed along the y-axis? Default: TRUE
 #'
-#' @importFrom Seurat GetAssayData
+#' @importFrom Seurat GetAssayData FetchData DefaultAssay<-
 #' @importFrom tidyr gather
 #' @importFrom tibble rownames_to_column
-#' @importFrom dplyr group_by arrange select slice
+#' @importFrom dplyr group_by arrange select slice mutate_if inner_join pull
 #' @importFrom stringr str_detect
 #' @importFrom magrittr %>% %<>%
 #' @importFrom gtools mixedsort
+#' @importFrom stats reorder
 #' @import ggplot2
 #'
 #' @return
 #' @export
 #'
 #' @examples
-violinEnsemble <- function(object,
+ViolinEnsemble <- function(object,
                            features = NULL,
                            marker_list = NULL,
-                           group_var = NULL,
+                           grouping_var = NULL,
                            show_points = FALSE,
                            alpha = 0.5,
                            pt_size = 0.25,
@@ -53,12 +54,12 @@ violinEnsemble <- function(object,
     stop("No features or marker_list provided.  What am I supposed to plot?")
   }
   try(
-    if (is.null(group_var)){
-      group_var <- "ident"
+    if (is.null(grouping_var)){
+      grouping_var <- "ident"
     }, silent = TRUE)
   try(
-    if (is.character(group_var)) {
-      group_var <- as.name(substitute(group_var))
+    if (is.character(grouping_var)) {
+      grouping_var <- as.name(substitute(grouping_var))
     }, silent = TRUE
   )
 
@@ -71,7 +72,7 @@ violinEnsemble <- function(object,
     features <- marker_list %>% pull(feature) %>% as.character()
   }
 
-  group_var <- enquo(group_var)
+  grouping_var <- enquo(grouping_var)
 
   if (assay_use %in% names(object)){
     DefaultAssay(object) <- assay_use
@@ -80,14 +81,14 @@ violinEnsemble <- function(object,
   }
 
   type_expr <- FetchData(object,
-                         vars = c(unique(features), quo_name(group_var)),
+                         vars = c(unique(features), quo_name(grouping_var)),
                          slot = slot_use)
   type_expr %<>%
     rownames_to_column('name') %>%
     gather(key = "feature",
            value = "value",
            -name,
-           -!!group_var)
+           -!!grouping_var)
 
   if (!is.null(marker_list)){
     type_expr %<>% inner_join(marker_list, by = "feature")
@@ -101,9 +102,9 @@ violinEnsemble <- function(object,
 
   if (isTRUE(sort)){
     try(
-      if(is.factor(type_expr[[quo_name(group_var)]])){
-        type_expr[[quo_name(group_var)]] %<>% reorder()
-        type_expr %<>% arrange(!!group_var)
+      if(is.factor(type_expr[[quo_name(grouping_var)]])){
+        type_expr[[quo_name(grouping_var)]] %<>% reorder()
+        type_expr %<>% arrange(!!grouping_var)
       })
   }
 
@@ -128,7 +129,7 @@ violinEnsemble <- function(object,
 
   if (!is.null(marker_list)){
     type_violins <- type_violins +
-      geom_violin(aes(x = !!group_var,
+      geom_violin(aes(x = !!grouping_var,
                       y = value,
                       fill = cluster),
                   scale = "width",
@@ -137,7 +138,7 @@ violinEnsemble <- function(object,
                  scales = "free")
   } else {
     type_violins <- type_violins +
-      geom_violin(aes(x = !!group_var,
+      geom_violin(aes(x = !!grouping_var,
                       y = value,
                       fill = feature),
                   scale = "width",
@@ -146,7 +147,7 @@ violinEnsemble <- function(object,
   }
 
   if (show_points){
-    type_violins <- type_violins + geom_jitter(aes(x = !!group_var,
+    type_violins <- type_violins + geom_jitter(aes(x = !!grouping_var,
                                                    y = value),
                                                alpha = alpha,
                                                size = pt_size
