@@ -5,9 +5,10 @@
 \title{ViolinEnsemble}
 \usage{
 ViolinEnsemble(object, features = NULL, marker_list = NULL,
-  grouping_var = NULL, show_points = FALSE, alpha = 0.5,
-  pt_size = 0.25, plot_title = NULL, assay_use = "RNA",
-  slot_use = "data", sort = FALSE, flip = TRUE)
+  grouping_var = NULL, cluster_x = FALSE, cluster_y = FALSE,
+  show_points = FALSE, alpha = 0.5, pt_size = 0.25,
+  plot_title = NULL, assay_use = "RNA", slot_use = "data",
+  sort = FALSE, flip = TRUE)
 }
 \arguments{
 \item{object}{Seurat object to plot}
@@ -22,6 +23,10 @@ Default: NULL}
 
 \item{grouping_var}{Grouping variable from ident or meta data to use. If NULL,
 the current active.ident is used.  Default: NULL}
+
+\item{cluster_x}{Arrange the x-axis variables using hierarchical clustering. Default: TRUE}
+
+\item{cluster_y}{Arrange the y-axis variables using hierarchical clustering. Default: FALSE}
 
 \item{show_points}{Display data points in addition to violin using geom_jitter? Default: FALSE}
 

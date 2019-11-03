@@ -12,6 +12,8 @@
 #' Default: NULL
 #' @param grouping_var Grouping variable from ident or meta data to use. If NULL,
 #' the current active.ident is used.  Default: NULL
+#' @param cluster_x Arrange the x-axis variables using hierarchical clustering. Default: TRUE
+#' @param cluster_y Arrange the y-axis variables using hierarchical clustering. Default: FALSE
 #' @param show_points Display data points in addition to violin using geom_jitter? Default: FALSE
 #' @param alpha Alpha value to use with geom_jitter. Default: 1
 #' @param pt_size Point size to use with geom_jitter. Default: 0.25
@@ -39,6 +41,8 @@ ViolinEnsemble <- function(object,
                            features = NULL,
                            marker_list = NULL,
                            grouping_var = NULL,
+                           cluster_x = FALSE,
+                           cluster_y = FALSE,
                            show_points = FALSE,
                            alpha = 0.5,
                            pt_size = 0.25,
@@ -106,6 +110,39 @@ ViolinEnsemble <- function(object,
         type_expr[[quo_name(grouping_var)]] %<>% reorder()
         type_expr %<>% arrange(!!grouping_var)
       })
+  }
+
+  if (isTRUE(cluster_x)) {
+
+    feature_dendro <- type_expr %>%
+      group_by(ident, feature) %>%
+      summarize(avg = mean(value)) %>%
+      pivot_wider(names_from = feature,
+                  values_from = avg) %>%
+      t() %>%
+      dist() %>%
+      hclust() %>%
+      as.dendrogram()
+
+      type_expr$feature <- factor(type_expr$feature,
+                                 levels = labels(feature_dendro),
+                                 ordered = TRUE)
+  }
+
+  if (isTRUE(cluster_y)) {
+
+    id_dendro <- type_expr %>%
+      group_by(ident, feature) %>%
+      summarize(avg = mean(value)) %>%
+      pivot_wider(names_from = feature,
+                  values_from = avg) %>%
+      dist() %>%
+      hclust() %>%
+      as.dendrogram()
+
+    type_expr$ident <- factor(type_expr$ident,
+                                 levels = labels(id_dendro),
+                                 ordered = TRUE)
   }
 
   type_violins <- type_expr %>%
