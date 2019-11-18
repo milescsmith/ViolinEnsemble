@@ -1,6 +1,6 @@
 Package: ViolinEnsemble
 Title: Create violin plots of gene expression for multiple genes
-Version: 0.0.0.9200
+Version: 0.0.0.9300
 Authors@R: 
     person(given = "Miles",
            family = "Smith",
@@ -14,6 +14,7 @@ Depends:
     R (>= 3.5.0)
 Imports:
     dplyr,
+    forcats,
     ggplot2,
     gtools,
     magrittr,
@@ -27,4 +28,4 @@ Remotes:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0

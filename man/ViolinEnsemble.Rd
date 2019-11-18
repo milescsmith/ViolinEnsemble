@@ -4,11 +4,22 @@
 \alias{ViolinEnsemble}
 \title{ViolinEnsemble}
 \usage{
-ViolinEnsemble(object, features = NULL, marker_list = NULL,
-  grouping_var = NULL, cluster_x = FALSE, cluster_y = FALSE,
-  show_points = FALSE, alpha = 0.5, pt_size = 0.25,
-  plot_title = NULL, assay_use = "RNA", slot_use = "data",
-  sort = FALSE, flip = TRUE)
+ViolinEnsemble(
+  object,
+  features = NULL,
+  marker_list = NULL,
+  grouping_var = NULL,
+  cluster_x = FALSE,
+  cluster_y = FALSE,
+  show_points = FALSE,
+  alpha = 0.5,
+  pt_size = 0.25,
+  plot_title = NULL,
+  assay_use = "RNA",
+  slot_use = "data",
+  sort = FALSE,
+  flip = TRUE
+)
 }
 \arguments{
 \item{object}{Seurat object to plot}
@@ -43,6 +54,9 @@ the current active.ident is used.  Default: NULL}
 \item{sort}{If TRUE, attempt to sort the groups alpha-numerically. Default: FALSE}
 
 \item{flip}{Should features be displayed along the y-axis? Default: TRUE}
+}
+\value{
+
 }
 \description{
 Produce grouped violin plots.  Suitable for

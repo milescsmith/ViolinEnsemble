@@ -31,6 +31,7 @@
 #' @importFrom magrittr %>% %<>%
 #' @importFrom gtools mixedsort
 #' @importFrom stats reorder
+#' @importFrom forcats fct_relevel as_factor
 #' @import ggplot2
 #'
 #' @return
@@ -68,11 +69,22 @@ ViolinEnsemble <- function(object,
   )
 
   if (!is.null(marker_list)){
-    marker_list %<>% select(cluster, feature) %>%
-      mutate_if(is.factor, as.character) %>%
-      arrange(feature) %>%
+    marker_list %<>%
+      ungroup() %>%
+      select(cluster, feature) %>%
+      mutate(
+        cluster = fct_relevel(
+          as_factor(cluster),
+          mixedsort(unique(
+            cluster
+          )
+          )
+        )
+      ) %>%
+      arrange(cluster) %>%
       group_by(feature) %>%
-      slice(1)
+      slice(1) %>%
+      arrange(cluster)
     features <- marker_list %>% pull(feature) %>% as.character()
   }
 
