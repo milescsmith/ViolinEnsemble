@@ -12,6 +12,7 @@
 #' Default: NULL
 #' @param grouping_var Grouping variable from ident or meta data to use. If NULL,
 #' the current active.ident is used.  Default: NULL
+#' @param make_features_unique For a marker list, keep a feature for only the first cluster it is found it.
 #' @param cluster_x Arrange the x-axis variables using hierarchical clustering. Default: TRUE
 #' @param cluster_y Arrange the y-axis variables using hierarchical clustering. Default: FALSE
 #' @param show_points Display data points in addition to violin using geom_jitter? Default: FALSE
@@ -42,6 +43,7 @@ ViolinEnsemble <- function(object,
                            features = NULL,
                            marker_list = NULL,
                            grouping_var = NULL,
+                           make_features_unique = TRUE,
                            cluster_x = FALSE,
                            cluster_y = FALSE,
                            show_points = FALSE,
@@ -81,10 +83,15 @@ ViolinEnsemble <- function(object,
           )
         )
       ) %>%
-      arrange(cluster) %>%
-      group_by(feature) %>%
-      slice(1) %>%
       arrange(cluster)
+
+    if(isTRUE(make_features_unique)){
+      marker_list %<>%
+        group_by(feature) %>%
+        slice(1) %>%
+        arrange(cluster)
+    }
+
     features <- marker_list %>% pull(feature) %>% as.character()
   }
 

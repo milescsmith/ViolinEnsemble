@@ -9,6 +9,7 @@ ViolinEnsemble(
   features = NULL,
   marker_list = NULL,
   grouping_var = NULL,
+  make_features_unique = TRUE,
   cluster_x = FALSE,
   cluster_y = FALSE,
   show_points = FALSE,
@@ -34,6 +35,8 @@ Default: NULL}
 
 \item{grouping_var}{Grouping variable from ident or meta data to use. If NULL,
 the current active.ident is used.  Default: NULL}
+
+\item{make_features_unique}{For a marker list, keep a feature for only the first cluster it is found it.}
 
 \item{cluster_x}{Arrange the x-axis variables using hierarchical clustering. Default: TRUE}
 
